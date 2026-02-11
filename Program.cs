@@ -14,17 +14,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 // Default route goes to the job posting form.
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=JobPosting}/{action=Create}/{id?}")
-    .WithStaticAssets();
+        pattern: "{controller=JobPosting}/{action=Create}/{id?}");
 
 
 app.Run();
