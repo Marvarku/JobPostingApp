@@ -1,0 +1,330 @@
+@model JobPostingApp.Models.JobPostingFormViewModel
+
+@{
+    ViewData["Title"] = "Create Job Posting / Stellenanzeige erfassen";
+}
+
+<h2>Create Job Posting / Stellenanzeige erfassen</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-primary step-indicator" data-step="0">1</span>
+                <span class="badge bg-secondary step-indicator" data-step="1">2</span>
+                <span class="badge bg-secondary step-indicator" data-step="2">3</span>
+                <span class="badge bg-secondary step-indicator" data-step="3">4</span>
+            </div>
+            <div class="progress" style="height: 6px;">
+                <div id="stepperProgress" class="progress-bar bg-primary" role="progressbar"
+                     style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <form asp-action="Create" method="post" id="jobPostingStepperForm">
+            <div class="step" data-step="0">
+                <h3>Company / Unternehmen</h3>
+                <p class="text-muted">Basic information about your company.</p>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyName" class="form-label">
+                        Company name / Unternehmensname
+                    </label>
+                    <input asp-for="CompanyName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EmployeeCount" class="form-label">
+                        Number of employees / Mitarbeiteranzahl
+                    </label>
+                    <input asp-for="EmployeeCount" class="form-control" type="number" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyLocations" class="form-label">
+                        Locations (comma-separated) / Standorte (durch Komma getrennt)
+                    </label>
+                    <input asp-for="CompanyLocations" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LogoUrl" class="form-label">
+                        Logo URL / Logo-URL
+                    </label>
+                    <input asp-for="LogoUrl" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BannerUrl" class="form-label">
+                        Banner URL / Banner-URL
+                    </label>
+                    <input asp-for="BannerUrl" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyDescription" class="form-label">
+                        Company description / Unternehmensbeschreibung
+                    </label>
+                    <textarea asp-for="CompanyDescription" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Benefits" class="form-label">
+                        Benefits (comma-separated) / Benefits (durch Komma getrennt)
+                    </label>
+                    <input asp-for="Benefits" class="form-control" />
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-stepper-next>Next / Weiter</button>
+                </div>
+            </div>
+
+            <div class="step d-none" data-step="1">
+                <h3>Contact person / Ansprechpartner</h3>
+                <p class="text-muted">Who can we contact regarding this job posting?</p>
+
+                <div class="mb-3">
+                    <label asp-for="Salutation" class="form-label">
+                        Salutation / Anrede
+                    </label>
+                    <input asp-for="Salutation" class="form-control" placeholder="z.B. Herr, Frau, Dr." />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactFirstName" class="form-label">
+                        First name / Vorname
+                    </label>
+                    <input asp-for="ContactFirstName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactLastName" class="form-label">
+                        Last name / Nachname
+                    </label>
+                    <input asp-for="ContactLastName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactPhone" class="form-label">
+                        Phone / Telefon
+                    </label>
+                    <input asp-for="ContactPhone" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactEmail" class="form-label">
+                        E-mail
+                    </label>
+                    <input asp-for="ContactEmail" class="form-control" type="email" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary" data-stepper-prev>Back / Zurück</button>
+                    <button type="button" class="btn btn-primary" data-stepper-next>Next / Weiter</button>
+                </div>
+            </div>
+
+            <div class="step d-none" data-step="2">
+                <h3>Billing address / Rechnungsadresse</h3>
+                <p class="text-muted">Enter billing details for this posting.</p>
+
+                <div class="mb-3">
+                    <label asp-for="BillingStreet" class="form-label">
+                        Street / Straße
+                    </label>
+                    <input asp-for="BillingStreet" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BillingHouseNumber" class="form-label">
+                        House number / Hausnummer
+                    </label>
+                    <input asp-for="BillingHouseNumber" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BillingPostalCode" class="form-label">
+                        Postal code / PLZ
+                    </label>
+                    <input asp-for="BillingPostalCode" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BillingCity" class="form-label">
+                        City / Stadt
+                    </label>
+                    <input asp-for="BillingCity" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Iban" class="form-label">
+                        IBAN
+                    </label>
+                    <input asp-for="Iban" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Bic" class="form-label">
+                        BIC
+                    </label>
+                    <input asp-for="Bic" class="form-control" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary" data-stepper-prev>Back / Zurück</button>
+                    <button type="button" class="btn btn-primary" data-stepper-next>Next / Weiter</button>
+                </div>
+            </div>
+
+            <div class="step d-none" data-step="3">
+                <h3>Job details & requirements / Stellenangaben & Anforderungen</h3>
+                <p class="text-muted">Describe the role and candidate requirements.</p>
+
+                <div class="mb-3">
+                    <label asp-for="JobTitle" class="form-label">
+                        Job title / Stellentitel
+                    </label>
+                    <input asp-for="JobTitle" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Departments" class="form-label">
+                        Departments (comma-separated) / Fachbereiche (durch Komma getrennt)
+                    </label>
+                    <input asp-for="Departments" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContractType" class="form-label">
+                        Contract type / Arbeitsverhältnis (befristet/unbefristet)
+                    </label>
+                    <select asp-for="ContractType" class="form-select">
+                        <option value="">-- please select / bitte wählen --</option>
+                        <option value="Temporary">Temporary / Befristet</option>
+                        <option value="Permanent">Permanent / Unbefristet</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PositionType" class="form-label">
+                        Type of position / Art der Stelle
+                    </label>
+                    <select asp-for="PositionType" class="form-select">
+                        <option value="">-- please select / bitte wählen --</option>
+                        <option>Full-time position / Vollzeitstelle</option>
+                        <option>Part-time position / Teilzeitstelle</option>
+                        <option>Internship / Praktikum</option>
+                        <option>Working student / Werkstudent</option>
+                        <option>Apprenticeship / Ausbildung</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="WorkScope" class="form-label">
+                        Scope / Umfang (Vollzeit/Teilzeit)
+                    </label>
+                    <select asp-for="WorkScope" class="form-select">
+                        <option value="">-- please select / bitte wählen --</option>
+                        <option value="Fulltime">Full-time / Vollzeit</option>
+                        <option value="Parttime">Part-time / Teilzeit</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="StartDate" class="form-label">
+                        Start date / Einstellungsdatum
+                    </label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ItSkills" class="form-label">
+                        IT skills (comma-separated) / IT-Kenntnisse (durch Komma getrennt)
+                    </label>
+                    <input asp-for="ItSkills" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="JobPostalCodes" class="form-label">
+                        Job locations (postal codes, comma-separated) /
+                        Standorte (PLZ, durch Komma getrennt)
+                    </label>
+                    <input asp-for="JobPostalCodes" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="GermanLevel" class="form-label">
+                        German level / Deutschniveau
+                    </label>
+                    <select asp-for="GermanLevel" class="form-select">
+                        <option value="">-- please select / bitte wählen --</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                        <option>B1</option>
+                        <option>B2</option>
+                        <option>C1</option>
+                        <option>C2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="JobDescription" class="form-label">
+                        Job description / Stellenbeschreibung
+                    </label>
+                    <textarea asp-for="JobDescription" class="form-control" rows="5"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DrivingLicenseClass" class="form-label">
+                        Required driving license class / Nötige Führerscheinklasse
+                    </label>
+                    <input asp-for="DrivingLicenseClass" class="form-control"
+                           placeholder="z.B. B, BE, C, CE" />
+                </div>
+
+                <h4>Additional requirements / Weitere Anforderungen</h4>
+
+                <div class="mb-3">
+                    <label asp-for="YearsOfExperience" class="form-label">
+                        Years of experience / Jahre Berufserfahrung
+                    </label>
+                    <input asp-for="YearsOfExperience" class="form-control" type="number" min="0" />
+                </div>
+
+                <div class="form-check mb-2">
+                    <input asp-for="Remote" class="form-check-input" type="checkbox" value="true" />
+                    <label class="form-check-label" for="Remote">
+                        Remote possible / Remote möglich
+                    </label>
+                </div>
+
+                <div class="form-check mb-2">
+                    <input asp-for="OpenToRelocation" class="form-check-input" type="checkbox" value="true" />
+                    <label class="form-check-label" for="OpenToRelocation">
+                        Open to relocation / Offen für Umzug
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="WillingToTravel" class="form-check-input" type="checkbox" value="true" />
+                    <label class="form-check-label" for="WillingToTravel">
+                        Willingness to travel / Reisebereitschaft
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary" data-stepper-prev>Back / Zurück</button>
+                    <button type="submit" class="btn btn-success">
+                        Save / Speichern
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
